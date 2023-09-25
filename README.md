@@ -39,16 +39,8 @@ Para utilizar la Aplicación Móvil de Activación de Alarma, se deben cumplir l
 5. Todas las notificaciones se enviarán automáticamente a los dispositivos conectados a la red WiFi.
 6. Todas las activaciones de alarma se registrarán en la base de datos para su posterior revisión.
 
-## Contribuciones
-
-Este proyecto está en constante desarrollo, y las contribuciones son bienvenidas. Si deseas contribuir al desarrollo de esta aplicación, sigue estos pasos:
-
-1. Clona el repositorio en tu máquina local.
-2. Realiza tus cambios o mejoras.
-3. Envía un pull request explicando las modificaciones realizadas.
-
 ## Contacto
 
-Si tienes preguntas, problemas o sugerencias relacionadas con la Aplicación Móvil de Activación de Alarma, no dudes en ponerte en contacto con nosotros en [correo electrónico o sitio web de soporte].
+Si tienes preguntas, problemas o sugerencias relacionadas con la Aplicación Móvil de Activación de Alarma, no dudes en ponerte en contacto con nosotros por alguno de nuestros email: lorang.damian.epet20@gmail.com , kamel.dayoub.epet20@gmail.com , nicole.zimmer.epet20@gmail.com .
 
 ¡Gracias por utilizar nuestra aplicación!
