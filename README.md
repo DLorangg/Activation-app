@@ -21,14 +21,9 @@ La **Aplicación Móvil de Activación de Alarma** es una herramienta diseñada 
 Para utilizar la Aplicación Móvil de Activación de Alarma, se deben cumplir los siguientes requisitos:
 
 - Un dispositivo móvil con sistema operativo compatible (iOS o Android).
+- Expo Go instalado en tu dispositivo.
 - Acceso a una red WiFi para recibir notificaciones de alarma.
 - Credenciales de inicio de sesión proporcionadas por el administrador del sistema.
-
-## Instalación
-
-1. Descarga la aplicación desde la tienda de aplicaciones de tu dispositivo móvil (App Store o Google Play).
-2. Instala la aplicación en tu dispositivo.
-3. Abre la aplicación.
 
 ## Uso
 
