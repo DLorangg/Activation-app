@@ -5,6 +5,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 //Screens
+import LoginScreen from "./screens/LoginScreen";
+import ButtonScreen from "./screens/ButtonScreen";
 
 const Stack = createNativeStackNavigator();
 
