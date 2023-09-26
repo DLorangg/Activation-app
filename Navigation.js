@@ -27,8 +27,7 @@ export default function Navigation(){
     )
 }
 const MyTheme = {
-    dark: false,
     colors: {
-      background: '#fffff'
+      background: '#ffffff'
     },
 };
