@@ -1,7 +1,5 @@
 import React from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { FontAwesome } from '@expo/vector-icons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 //Screens
