@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [passwd, setPasswd] = useState('');
   const [error, setError] = useState('');
+  const navigation = useNavigation(); 
 
   const handleLogin = () => {
     // Validación básica de campos de entrada
@@ -20,6 +22,7 @@ const LoginScreen = () => {
         if (response.data.success) {
           // Inicio de sesión exitoso
           console.log('Inicio de sesión exitoso:', response.data.message);
+          navigation.navigate('Button');
         } else {
           // Inicio de sesión fallido, muestra un mensaje de error
           setError('Credenciales incorrectas.');
