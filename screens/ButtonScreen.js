@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Modal, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import ZonePicker from '../components/ZonePicker';
 import { Picker } from '@react-native-picker/picker';
 
@@ -8,48 +8,68 @@ const ButtonScreen = ({ route }) => {
   const [showForm, setShowForm] = useState(false); // Estado para mostrar u ocultar el formulario
   const [selectedZone, setSelectedZone] = useState('');
   const [selectedCallType, setSelectedCallType] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
+  const [buttonPressCount, setButtonPressCount] = useState(0);
 
   const handleButtonPress = () => {
     if (!showForm) {
       setShowForm(true);
+      setButtonPressCount(0);
     } else {
-      // Mostrar una alerta con los valores seleccionados
-      const message = `Zona: ${selectedZone}\nLlamado: ${selectedCallType}`; // Cambio de orden aquí
+      if (buttonPressCount === 1) {
+        // Si es la segunda vez que se presiona el botón, cierra el formulario
+        setShowForm(false);
+        setSelectedZone('');
+        setSelectedCallType('');
+        setButtonPressCount(0);
+      } else {
+        // Mostrar una alerta con los valores seleccionados
+        const message = `Zona: ${selectedZone}\nLlamado: ${selectedCallType}`;
 
-      Alert.alert(
-        'Confirmación',
-        message,
-        [
-          {
-            text: 'Cancelar',
-            onPress: () => {
-              setShowForm(true); // Vuelve a mostrar el formulario
+        Alert.alert(
+          'Confirmación',
+          message,
+          [
+            {
+              text: 'Cancelar',
+              onPress: () => {
+                setShowForm(true); // Vuelve a mostrar el formulario
+                setButtonPressCount(0);
+              },
             },
-          },
-          {
-            text: 'Enviar',
-            onPress: () => {
-              setShowForm(false); // Oculta el formulario
-              setShowAlert(false); // Oculta la alerta
+            {
+              text: 'Enviar',
+              onPress: () => {
+                setShowForm(false); // Oculta el formulario
+                setButtonPressCount(0);
+              },
             },
-          },
-        ]
-      );
+          ]
+        );
 
-      setShowAlert(true);
+        setButtonPressCount(2); // Establece el contador en 2 para indicar la segunda pulsación
+      }
+    }
+  };
+
+  const handleImagePress = () => {
+    // Si el formulario está visible, ciérralo
+    if (showForm) {
+      setShowForm(false);
+      setButtonPressCount(0);
+    } else {
+      // Si el formulario está oculto, muéstralo
+      setShowForm(true);
     }
   };
 
   return (
     <View style={styles.container}>
-      {/* Título en la parte superior del centro */}
       <Text style={styles.title}>Bienvenido {user.name} {user.surname}!</Text>
 
       {/* Botón con la imagen */}
       <TouchableOpacity
         style={styles.button}
-        onPress={handleButtonPress}
+        onPress={handleImagePress}
       >
         <Image source={require('../assets/boton.png')} style={styles.buttonImage} />
       </TouchableOpacity>
@@ -71,6 +91,14 @@ const ButtonScreen = ({ route }) => {
             <Picker.Item label="Normal" value="Normal" />
             <Picker.Item label="Emergencia" value="Emergencia" />
           </Picker>
+
+          {/* Botón "Activar" */}
+          <TouchableOpacity
+            style={styles.activateButton}
+            onPress={handleButtonPress}
+          >
+            <Text style={styles.activateButtonText}>Activar</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -87,11 +115,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 15, // Agrega margen superior para "Bienvenido"
+    marginTop: 15,
     color: '#0E6AB0',
   },
   button: {
     marginTop: 20,
+    marginBottom: 10,
   },
   buttonImage: {
     width: 100,
@@ -100,7 +129,20 @@ const styles = StyleSheet.create({
   form: {
     alignItems: 'center',
   },
+  activateButton: {
+    backgroundColor: '#0E6AB0', // Fondo azul
+    borderRadius: 10, // Bordes redondeados
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 170, 
+    marginBottom: 5
+  },
+  activateButtonText: {
+    marginBottom: 5,
+    marginTop: 5,
+    color: '#000', // Texto negro
+    fontWeight: 'bold',
+  },
 });
-
 
 export default ButtonScreen;
