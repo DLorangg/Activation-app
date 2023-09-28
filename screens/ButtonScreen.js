@@ -1,17 +1,49 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Modal } from 'react-native';
-import ZonePicker from '../components/ZonePicker'; // Importa el componente ZonePicker que creamos antes
+import { View, Text, TouchableOpacity, StyleSheet, Image, Modal, Alert } from 'react-native';
+import ZonePicker from '../components/ZonePicker';
+import { Picker } from '@react-native-picker/picker';
 
 const ButtonScreen = ({ route }) => {
   const { user } = route.params;
   const [showForm, setShowForm] = useState(false); // Estado para mostrar u ocultar el formulario
+  const [selectedZone, setSelectedZone] = useState('');
+  const [selectedCallType, setSelectedCallType] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleButtonPress = () => {
-    setShowForm(true); // Muestra el formulario cuando se presiona el botón
+    if (!showForm) {
+      setShowForm(true);
+    } else {
+      // Mostrar una alerta con los valores seleccionados
+      const message = `Zona: ${selectedZone}\nLlamado: ${selectedCallType}`; // Cambio de orden aquí
+
+      Alert.alert(
+        'Confirmación',
+        message,
+        [
+          {
+            text: 'Cancelar',
+            onPress: () => {
+              setShowForm(true); // Vuelve a mostrar el formulario
+            },
+          },
+          {
+            text: 'Enviar',
+            onPress: () => {
+              setShowForm(false); // Oculta el formulario
+              setShowAlert(false); // Oculta la alerta
+            },
+          },
+        ]
+      );
+
+      setShowAlert(true);
+    }
   };
 
   return (
     <View style={styles.container}>
+      {/* Título en la parte superior del centro */}
       <Text style={styles.title}>Bienvenido {user.name} {user.surname}!</Text>
 
       {/* Botón con la imagen */}
@@ -23,8 +55,24 @@ const ButtonScreen = ({ route }) => {
       </TouchableOpacity>
 
       {/* Formulario desplegable */}
-      {showForm && <ZonePicker />}
-
+      {showForm && (
+        <View style={styles.form}>
+          <ZonePicker
+            selectedZone={selectedZone}
+            onZoneChange={setSelectedZone}
+          />
+          <Text>Selecciona el tipo de llamado:</Text>
+          <Picker
+            selectedValue={selectedCallType}
+            onValueChange={(itemValue, itemIndex) => setSelectedCallType(itemValue)}
+            style={{ height: 40, width: 200 }} // Ajusta la altura y el ancho según tus necesidades
+          >
+            <Picker.Item label="-----" value="" />
+            <Picker.Item label="Normal" value="Normal" />
+            <Picker.Item label="Emergencia" value="Emergencia" />
+          </Picker>
+        </View>
+      )}
     </View>
   );
 };
@@ -39,16 +87,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginTop: 15, // Agrega margen superior para "Bienvenido"
     color: '#0E6AB0',
   },
   button: {
     marginTop: 20,
   },
   buttonImage: {
-    width: 100, // Ajusta el ancho de la imagen según tus preferencias
-    height: 100, // Ajusta la altura de la imagen según tus preferencias
+    width: 100,
+    height: 100,
+  },
+  form: {
+    alignItems: 'center',
   },
 });
+
 
 export default ButtonScreen;
