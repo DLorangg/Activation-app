@@ -41,6 +41,7 @@ const LoginScreen = () => {
         style={styles.input}
         placeholder="Nombre de usuario"
         value={username}
+        autoCapitalize='none'
         onChangeText={text => setUsername(text)}
       />
       <TextInput
