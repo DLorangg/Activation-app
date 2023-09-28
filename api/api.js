@@ -39,7 +39,24 @@ app.post('/login', (req, res) => {
       res.status(500).json({ success: false, message: 'Error en el servidor' });
     } else {
       if (results.length > 0) {
-        res.json({ success: true, message: 'Inicio de sesión exitoso' });
+        const user = results[0];
+
+        // Consulta para obtener información adicional del usuario
+        const userInfoQuery = 'SELECT name, surname FROM users WHERE username = ?';
+        connection.query(userInfoQuery, [username], (error, userInfoResults) => {
+          if (error) {
+            console.error('Error al obtener información adicional del usuario:', error);
+            res.status(500).json({ success: false, message: 'Error en el servidor' });
+          } else {
+            if (userInfoResults.length > 0) {
+              // Agrega la información adicional del usuario a la respuesta
+              user.name = userInfoResults[0].name;
+              user.surname = userInfoResults[0].surname;
+
+              res.json({ success: true, message: 'Inicio de sesión exitoso', user });
+            }
+          }
+        });
       } else {
         res.json({ success: false, message: 'Credenciales incorrectas' });
       }
