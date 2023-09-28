@@ -64,6 +64,20 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.get('/areas', (req, res) => {
+  const areasQuery = 'SELECT name FROM areas'; // Consulta SQL para obtener los nombres de zonas
+  connection.query(areasQuery, (error, results) => {
+    if (error) {
+      console.error('Error al obtener nombres de zonas:', error);
+      res.status(500).json({ success: false, message: 'Error en el servidor' });
+    } else {
+      const zoneNames = results.map(result => result.name);
+      res.json(zoneNames);
+    }
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`API escuchando en el puerto ${port}`);
 });
