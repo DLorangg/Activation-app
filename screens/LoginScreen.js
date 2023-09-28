@@ -17,12 +17,14 @@ const LoginScreen = () => {
     }
 
     axios
-      .post('http://192.168.1.11:7007/login', { username, passwd }) // Cambia la dirección IP y el puerto si es necesario
+      .post('http://192.168.1.11:7007/login', { username, passwd }) // Cambia la dirección IP a la tuya 
       .then(response => {
         if (response.data.success) {
           // Inicio de sesión exitoso
           console.log('Inicio de sesión exitoso:', response.data.message);
-          navigation.navigate('Button');
+
+          // Navega a ButtonScreen y pasa la información del usuario como prop
+          navigation.navigate('Button', { user: response.data.user });
         } else {
           // Inicio de sesión fallido, muestra un mensaje de error
           setError('Credenciales incorrectas.');
