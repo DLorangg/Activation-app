@@ -3,9 +3,8 @@ import { View, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 
-const ZonePicker = () => {
+const ZonePicker = ({ selectedZone, onZoneChange }) => {
   const [zoneNames, setZoneNames] = useState([]);
-  const [selectedZone, setSelectedZone] = useState('');
 
   useEffect(() => {
     // Obtener los nombres de zonas desde la API
@@ -23,13 +22,13 @@ const ZonePicker = () => {
       <Text>Selecciona una zona:</Text>
       <Picker
         selectedValue={selectedZone}
-        onValueChange={(itemValue, itemIndex) => setSelectedZone(itemValue)}
+        onValueChange={(itemValue, itemIndex) => onZoneChange(itemValue)}
       >
+        <Picker.Item label="-----" value="" />
         {zoneNames.map((zoneName, index) => (
           <Picker.Item key={index} label={zoneName} value={zoneName} />
         ))}
       </Picker>
-      <Text>Zona seleccionada: {selectedZone}</Text>
     </View>
   );
 };
