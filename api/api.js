@@ -1,16 +1,17 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const cors = require('cors'); // Importa el paquete CORS
 
 const app = express();
 const port = 7007; // Puerto para tu API
 
+// Cadena de conexión a la base de datos en la nube (proporcionada por Railway)
 const dbConfig = {
-  host: '192.168.1.11', // Dirección IP de tu servidor MySQL
-  user: 'root', // Usuario de MySQL
-  password: '', // Contraseña de MySQL (deja esto en blanco si no tienes una contraseña)
-  database: 'codigo_azul', // Nombre de la base de datos MySQL
-  port: 3306, // Puerto de MySQL (por defecto 3306)
+  host: 'containers-us-west-46.railway.app',
+  user: 'root',
+  password: 'sc6IifdQ8D2riPihXkGp',
+  database: 'railway',
+  port: 6573, // Puerto de la base de datos en la nube
 };
 
 app.use(cors());
@@ -23,19 +24,14 @@ connection.connect(error => {
     console.error('Error al conectar a la base de datos:', error);
     throw error;
   }
-  console.log('Conexión exitosa a la base de datos MySQL');
+  console.log('Conexión exitosa a la base de datos MySQL en la nube');
 });
 
 // Ruta para manejar la solicitud de inicio de sesión
 app.post('/login', (req, res) => {
   const { username, passwd } = req.body;
 
-  if (!username || !passwd) {
-    res.status(400).json({ success: false, message: 'Por favor, completa todos los campos.' });
-    return;
-  }
-
-  const query = 'SELECT * FROM users WHERE username = ? AND passwd = ?'; // Asegúrate de que coincida con tu base de datos
+  const query = 'SELECT * FROM users WHERE username = ? AND passwd = ?';
 
   connection.query(query, [username, passwd], (error, results) => {
     if (error) {
