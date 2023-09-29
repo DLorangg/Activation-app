@@ -8,7 +8,7 @@ const Alarm = () => {
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync(
       require('../assets/alarm.mp3'),
-      { isLooping: true } // Establece isLooping en true para reproducir en bucle
+      { isLooping: true }
     );
     setSound(sound);
   };
