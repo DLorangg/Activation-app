@@ -77,6 +77,57 @@ app.get('/areas', (req, res) => {
   });
 });
 
+app.post('/submit-call', (req, res) => {
+  const { selectedCallType, textInputValue, user, selectedZone } = req.body; // Datos del formulario
+
+  // Paso 1: Hacer una consulta para obtener el id del paciente por su DNI
+  const DNI = textInputValue;
+  const getPacientIdQuery = 'SELECT id FROM pacients WHERE DNI = ?';
+
+  connection.query(getPacientIdQuery, [DNI], (error, results) => {
+    if (error) {
+      console.error('Error al obtener el id del paciente:', error);
+      res.status(500).json({ success: false, message: 'Error en el servidor' });
+    } else {
+      if (results.length > 0) {
+        const pacientId = results[0].id;
+
+        // Paso 2: Consultar el id de la zona seleccionada en la tabla areas
+        const getAreaIdQuery = 'SELECT id FROM areas WHERE name = ?';
+
+        connection.query(getAreaIdQuery, [selectedZone], (error, areaResults) => {
+          if (error) {
+            console.error('Error al obtener el id de la zona:', error);
+            res.status(500).json({ success: false, message: 'Error en el servidor' });
+          } else {
+            if (areaResults.length > 0) {
+              const areaId = areaResults[0].id;
+
+              // Paso 3: Insertar los datos en la tabla calls con la hora actual del servidor de la base de datos
+              const insertCallQuery = 'INSERT INTO calls (type, status, start_hour, id_users, id_pacient, id_areas) VALUES (?, 1, NOW(), ?, ?, ?)';
+              const values = [selectedCallType, user.id, pacientId, areaId];
+
+              connection.query(insertCallQuery, values, (error, insertResults) => {
+                if (error) {
+                  console.error('Error al insertar la llamada en la base de datos:', error);
+                  res.status(500).json({ success: false, message: 'Error en el servidor' });
+                } else {
+                  res.json({ success: true, message: 'Llamada registrada exitosamente' });
+                }
+              });
+            } else {
+              console.error('Zona no encontrada:', selectedZone);
+              res.json({ success: false, message: 'Zona no encontrada' });
+            }
+          }
+        });
+      } else {
+        console.error('Paciente no encontrado con el DNI proporcionado:', DNI);
+        res.json({ success: false, message: 'Paciente no encontrado con el DNI proporcionado' });
+      }
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`API escuchando en el puerto ${port}`);
