@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors'); // Importa el paquete CORS
+const moment = require('moment');
 
 const app = express();
 const port = 7007; // Puerto para tu API
@@ -92,20 +93,23 @@ app.post('/submit-call', (req, res) => {
       if (results.length > 0) {
         const pacientId = results[0].id;
 
-        // Paso 2: Consultar el id de la zona seleccionada en la tabla areas
+        // Paso 2: Obtener el ID de áreas basado en el nombre de la zona seleccionada
         const getAreaIdQuery = 'SELECT id FROM areas WHERE name = ?';
 
         connection.query(getAreaIdQuery, [selectedZone], (error, areaResults) => {
           if (error) {
-            console.error('Error al obtener el id de la zona:', error);
+            console.error('Error al obtener el ID de área:', error);
             res.status(500).json({ success: false, message: 'Error en el servidor' });
           } else {
             if (areaResults.length > 0) {
-              const areaId = areaResults[0].id;
+              const selectedAreaId = areaResults[0].id;
 
-              // Paso 3: Insertar los datos en la tabla calls con la hora actual del servidor de la base de datos
-              const insertCallQuery = 'INSERT INTO calls (type, status, start_hour, id_users, id_pacient, id_areas) VALUES (?, 1, NOW(), ?, ?, ?)';
-              const values = [selectedCallType, user.id, pacientId, areaId];
+              // Paso 3: Obtener la hora actual en el formato deseado
+              const formattedStartHour = moment().format('YYYY-MM-DD HH:mm:ss');
+
+              // Paso 4: Insertar los datos en la tabla calls
+              const insertCallQuery = 'INSERT INTO calls (type, status, start_hour, id_users, id_pacient, id_areas) VALUES (?, 1, ?, ?, ?, ?)';
+              const values = [selectedCallType, formattedStartHour, user.id, pacientId, selectedAreaId];
 
               connection.query(insertCallQuery, values, (error, insertResults) => {
                 if (error) {
@@ -116,8 +120,8 @@ app.post('/submit-call', (req, res) => {
                 }
               });
             } else {
-              console.error('Zona no encontrada:', selectedZone);
-              res.json({ success: false, message: 'Zona no encontrada' });
+              console.error('Área no encontrada con el nombre proporcionado:', selectedZone);
+              res.json({ success: false, message: 'Área no encontrada con el nombre proporcionado' });
             }
           }
         });
