@@ -25,6 +25,38 @@ Para utilizar la Aplicación Móvil de Activación de Alarma, se deben cumplir l
 - Acceso a una red WiFi para recibir notificaciones de alarma.
 - Credenciales de inicio de sesión proporcionadas por el administrador del sistema.
 
+## Ejecutar la Aplicación
+
+Sigue estos pasos para ejecutar la Aplicación Móvil de Activación de Alarma en tu dispositivo:
+
+### 1. Clona el Repositorio
+
+Primero, clona el repositorio de la aplicación desde GitHub a tu computadora. Abre tu terminal y ejecuta el siguiente comando:
+
+```sh
+git clone https://github.com/tu-usuario/tu-repositorio.git
+
+### 2. Instala las dependencias
+
+Navega hasta la carpeta del proyecto y asegúrate de tener Node.js y npm (Node Package Manager) instalados en tu computadora. Luego, instala las dependencias del proyecto ejecutando:
+
+```sh
+npm install
+
+### 3. Inicia la API
+
+Para iniciar la API, ejecuta el siguiente comando en la raíz del proyecto:
+
+```sh
+node .\api\api.js
+
+### 4. Inicia el Servidor de Desarrollo
+
+Para iniciar el servidor de desarrollo de Expo, ejecuta el siguiente comando en la raíz del proyecto y escanea el codigo QR:
+
+```sh
+npx expo start
+
 ## Uso
 
 1. Inicia sesión en la aplicación utilizando las credenciales proporcionadas por el administrador del sistema.
@@ -36,6 +68,10 @@ Para utilizar la Aplicación Móvil de Activación de Alarma, se deben cumplir l
 
 ## Contacto
 
-Si tienes preguntas, problemas o sugerencias relacionadas con la Aplicación Móvil de Activación de Alarma, no dudes en ponerte en contacto con nosotros por alguno de nuestros email: lorang.damian.epet20@gmail.com , kamel.dayoub.epet20@gmail.com , nicole.zimmer.epet20@gmail.com .
+Si tienes preguntas, problemas o sugerencias relacionadas con la Aplicación Móvil de Activación de Alarma, no dudes en ponerte en contacto con nosotros por alguno de nuestros correos electrónicos:
+
+- Lorang Damian: lorang.damian.epet20@gmail.com
+- Kamel Dayoub: kamel.dayoub.epet20@gmail.com
+- Nicole Zimmer: nicole.zimmer.epet20@gmail.com
 
 ¡Gracias por utilizar nuestra aplicación!
