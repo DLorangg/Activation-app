@@ -27,7 +27,7 @@ const Alarm = () => {
 
   const fetchAlarmStatus = async () => {
     try {
-      const response = await fetch('http:192.168.1.11:7007/alarm-status');
+      const response = await fetch('http://192.168.1.38:7007/alarm-status');
       const data = await response.json();
       const { success, alarmActive } = data;
 

@@ -34,7 +34,7 @@ const ButtonScreen = ({ route }) => {
         };
 
         try {
-          const response = await fetch('http://192.168.1.11:7007/submit-call', {
+          const response = await fetch('http://192.168.1.38:7007/submit-call', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const ButtonScreen = ({ route }) => {
             selectedZone={selectedZone}
             onZoneChange={setSelectedZone}
           />
-          <Text>Selecciona el tipo de llamado:</Text>
+          <Text style={commonTextStyle}>Selecciona el tipo de llamado:</Text>
           <Picker
             selectedValue={selectedCallType}
             onValueChange={(itemValue, itemIndex) => setSelectedCallType(itemValue)}
@@ -123,6 +123,13 @@ const ButtonScreen = ({ route }) => {
   );
 };
 
+const commonTextStyle = {
+  fontSize: 18, 
+  color: '#0E6AB0', 
+  textAlign: 'center', 
+  marginBottom: 10, 
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
   },
   form: {
     alignItems: 'center',
+    width: 'auto',
   },
   input: {
     width: 200,

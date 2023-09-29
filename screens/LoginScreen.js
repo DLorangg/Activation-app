@@ -17,7 +17,7 @@ const LoginScreen = () => {
     }
 
     axios
-      .post('http://192.168.1.11:7007/login', { username, passwd }) // Cambia la dirección IP a la tuya 
+      .post('http://192.168.1.38:7007/login', { username, passwd }) // Cambia la dirección IP a la tuya 
       .then(response => {
         if (response.data.success) {
           // Inicio de sesión exitoso
