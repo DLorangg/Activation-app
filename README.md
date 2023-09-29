@@ -36,6 +36,10 @@ Para utilizar la Aplicación Móvil de Activación de Alarma, se deben cumplir l
 
 ## Contacto
 
-Si tienes preguntas, problemas o sugerencias relacionadas con la Aplicación Móvil de Activación de Alarma, no dudes en ponerte en contacto con nosotros por alguno de nuestros email: lorang.damian.epet20@gmail.com , kamel.dayoub.epet20@gmail.com , nicole.zimmer.epet20@gmail.com .
+Si tienes preguntas, problemas o sugerencias relacionadas con la Aplicación Móvil de Activación de Alarma, no dudes en ponerte en contacto con nosotros por alguno de nuestros correos electrónicos:
+
+- Lorang Damian: lorang.damian.epet20@gmail.com
+- Kamel Dayoub: kamel.dayoub.epet20@gmail.com
+- Nicole Zimmer: nicole.zimmer.epet20@gmail.com
 
 ¡Gracias por utilizar nuestra aplicación!
