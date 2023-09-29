@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, TextInput } from 'react-native';
 import ZonePicker from '../components/ZonePicker';
 import { Picker } from '@react-native-picker/picker';
 
@@ -9,6 +9,7 @@ const ButtonScreen = ({ route }) => {
   const [selectedZone, setSelectedZone] = useState('');
   const [selectedCallType, setSelectedCallType] = useState('');
   const [buttonPressCount, setButtonPressCount] = useState(0);
+  const [textInputValue, setTextInputValue] = useState('');
 
   const handleButtonPress = () => {
     if (!showForm) {
@@ -21,9 +22,10 @@ const ButtonScreen = ({ route }) => {
         setSelectedZone('');
         setSelectedCallType('');
         setButtonPressCount(0);
+        setTextInputValue(''); // Limpiar el valor del campo de entrada
       } else {
         // Mostrar una alerta con los valores seleccionados
-        const message = `Zona: ${selectedZone}\nLlamado: ${selectedCallType}`;
+        const message = `Zona: ${selectedZone}\nLlamado: ${selectedCallType}\nValor numérico: ${textInputValue}`;
 
         Alert.alert(
           'Confirmación',
@@ -41,6 +43,7 @@ const ButtonScreen = ({ route }) => {
               onPress: () => {
                 setShowForm(false); // Oculta el formulario
                 setButtonPressCount(0);
+                setTextInputValue(''); // Limpiar el valor del campo de entrada
               },
             },
           ]
@@ -64,7 +67,9 @@ const ButtonScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido {user.name} {user.surname}!</Text>
+      {!showForm && ( // Renderiza el texto "Bienvenido" solo si showForm es false
+        <Text style={styles.title}>Bienvenido {user.name} {user.surname}!</Text>
+      )}
 
       {/* Botón con la imagen */}
       <TouchableOpacity
@@ -91,6 +96,16 @@ const ButtonScreen = ({ route }) => {
             <Picker.Item label="Normal" value="Normal" />
             <Picker.Item label="Emergencia" value="Emergencia" />
           </Picker>
+
+          {/* Campo de entrada para el valor numérico */}
+          <TextInput
+            placeholder="DNI paciente"
+            style={styles.input}
+            onChangeText={setTextInputValue}
+            value={textInputValue}
+            maxLength={8} // Limitar la longitud del texto a 8 caracteres
+            keyboardType="numeric" // Teclado numérico
+          />
 
           {/* Botón "Activar" */}
           <TouchableOpacity
@@ -123,19 +138,29 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonImage: {
-    width: 100,
-    height: 100,
+    width: 125,
+    height: 125,
   },
   form: {
     alignItems: 'center',
   },
+  input: {
+    width: 200,
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    marginTop: 160,
+    marginBottom: 5,
+    paddingHorizontal: 10,
+  },
   activateButton: {
-    backgroundColor: '#0E6AB0', // Fondo azul
-    borderRadius: 10, // Bordes redondeados
+    backgroundColor: '#0E6AB0', 
+    borderRadius: 10, 
     paddingVertical: 10,
     paddingHorizontal: 20,
-    marginTop: 170, 
-    marginBottom: 5
+    marginTop: 10, 
+    marginBottom: 5, 
   },
   activateButtonText: {
     marginBottom: 5,
