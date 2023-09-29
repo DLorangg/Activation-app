@@ -28,6 +28,7 @@ const ButtonScreen = ({ route }) => {
           selectedCallType,
           textInputValue,
           user,
+          selectedZone,
         };
 
         try {
