@@ -133,6 +133,26 @@ app.post('/submit-call', (req, res) => {
   });
 });
 
+// Estado de la alarma
+app.get('/alarm-status', (req, res) => {
+  const alarmStatusQuery = 'SELECT status FROM calls WHERE status = 1 ';
+
+  connection.query(alarmStatusQuery, (error, results) => {
+    if (error) {
+      console.error('Error al obtener el estado de la alarma:', error);
+      res.status(500).json({ success: false, message: 'Error en el servidor' });
+    } else {
+      if (results.length > 0) {
+        // Si hay al menos una llamada activa (status = 1), devuelve estado de alarma activada
+        res.json({ success: true, alarmActive: true });
+      } else {
+        // Si no hay llamadas activas, devuelve estado de alarma desactivada
+        res.json({ success: true, alarmActive: false });
+      }
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`API escuchando en el puerto ${port}`);
 });
