@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, TextInput } from 'react-native';
 import ZonePicker from '../components/ZonePicker';
 import { Picker } from '@react-native-picker/picker';
+import 'expo-av';
+import Alarm from '../components/Alarm';
 
 const ButtonScreen = ({ route }) => {
   const { user } = route.params;
@@ -71,6 +73,7 @@ const ButtonScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
+      <Alarm />
       {!showForm && (
         <Text style={styles.title}>Bienvenido {user.name} {user.surname}!</Text>
       )}
