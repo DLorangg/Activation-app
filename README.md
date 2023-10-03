@@ -33,30 +33,6 @@ Sigue estos pasos para ejecutar la Aplicación Móvil de Activación de Alarma e
 
 Primero, clona el repositorio de la aplicación desde GitHub a tu computadora. Abre tu terminal y ejecuta el siguiente comando:
 
-```sh
-git clone https://github.com/tu-usuario/tu-repositorio.git
-
-### 2. Instala las dependencias
-
-Navega hasta la carpeta del proyecto y asegúrate de tener Node.js y npm (Node Package Manager) instalados en tu computadora. Luego, instala las dependencias del proyecto ejecutando:
-
-```sh
-npm install
-
-### 3. Inicia la API
-
-Para iniciar la API, ejecuta el siguiente comando en la raíz del proyecto:
-
-```sh
-node .\api\api.js
-
-### 4. Inicia el Servidor de Desarrollo
-
-Para iniciar el servidor de desarrollo de Expo, ejecuta el siguiente comando en la raíz del proyecto y escanea el codigo QR:
-
-```sh
-npx expo start
-
 ## Uso
 
 1. Inicia sesión en la aplicación utilizando las credenciales proporcionadas por el administrador del sistema.
